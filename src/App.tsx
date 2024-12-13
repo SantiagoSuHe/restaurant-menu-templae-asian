@@ -1,12 +1,18 @@
-import Header from './components/Header';
-import MenuGrid from './components/MenuGrid';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { LanguageProvider } from './contexts/LanguageContext';
+import Layout from './components/Layout';
+import { getBrowserLanguage } from './i18n/config';
 
 function App() {
   return (
-    <div className="min-h-screen bg-gray-50">
-      <Header />
-      <MenuGrid />
-    </div>
+    <BrowserRouter>
+      <LanguageProvider>
+        <Routes>
+          <Route path="/" element={<Navigate to={`/${getBrowserLanguage()}`} replace />} />
+          <Route path="/:lang/*" element={<Layout />} />
+        </Routes>
+      </LanguageProvider>
+    </BrowserRouter>
   );
 }
 

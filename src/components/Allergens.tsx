@@ -1,27 +1,25 @@
-import { AlertTriangle } from 'lucide-react';
+import { Allergen } from '../types/menu';
+import { useLanguage } from '../contexts/LanguageContext';
+import { translations } from '../i18n/translations';
 
 interface AllergensProps {
-  allergens: string[];
+  allergens: Allergen[];
 }
 
-export default function Allergens({ allergens }: AllergensProps) {
-  if (!allergens?.length) return null;
-  
+export function Allergens({ allergens }: AllergensProps) {
+  const { language } = useLanguage();
+  const allergenTranslations = translations[language].allergens;
+
   return (
-    <div className="flex items-center gap-2">
-      <div className="flex items-center text-yellow-500">
-        <AlertTriangle className="h-4 w-4" />
-      </div>
-      <div className="flex flex-wrap gap-1">
-        {allergens.map((allergen) => (
-          <span
-            key={allergen}
-            className="px-2 py-0.5 bg-yellow-50 text-yellow-700 rounded-full text-xs font-medium"
-          >
-            {allergen}
-          </span>
-        ))}
-      </div>
+    <div className="flex gap-1">
+      {allergens.map((allergen) => (
+        <span
+          key={allergen}
+          className="text-xs bg-red-50 text-red-700 px-2 py-0.5 rounded-full"
+        >
+          {allergenTranslations[allergen]}
+        </span>
+      ))}
     </div>
   );
 }

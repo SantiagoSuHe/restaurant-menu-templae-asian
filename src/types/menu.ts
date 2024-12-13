@@ -1,15 +1,22 @@
-export type Category = 'all' | 'appetizers' | 'main-courses' | 'soups' | 'desserts';
-export type SpicyLevel = 1 | 2 | 3;
+export type Category = 'appetizers' | 'main-courses' | 'soups' | 'desserts';
+export type Allergen = 'shellfish' | 'gluten' | 'dairy' | 'eggs' | 'peanuts';
+
+interface Translation {
+  name: string;
+  description: string;
+}
 
 export interface MenuItem {
   id: string;
-  name: string;
-  description: string;
+  translations: {
+    en: Translation;
+    es: Translation;
+  };
   price: number;
   category: Category;
   image: string;
-  spicyLevel?: SpicyLevel;
-  allergens?: string[];
+  spicyLevel?: 1 | 2 | 3;
+  allergens?: Allergen[];
 }
 
 export const categories: { id: Category; label: string }[] = [
