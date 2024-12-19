@@ -1,6 +1,7 @@
-import type { MenuItem as MenuItemType } from '../types/menu';
-import Allergens from './Allergens';
+import { MenuItem as MenuItemType } from '../types/menu';
+import { Allergens } from './Allergens';
 import SpicyLevel from './SpicyLevel';
+import { useLanguage } from '../contexts/LanguageContext';
 
 interface MenuItemProps {
   item: MenuItemType;
@@ -8,17 +9,20 @@ interface MenuItemProps {
 }
 
 export default function MenuItem({ item, isImageRight }: MenuItemProps) {
+  const { language } = useLanguage();
+  const { name, description } = item.translations[language];
+
   const Content = () => (
     <div className="flex-1 p-4 sm:p-6 flex flex-col justify-between">
       <div>
         <div className="flex justify-between items-start">
-          <h3 className="text-lg font-bold text-gray-900">{item.name}</h3>
+          <h3 className="text-lg font-bold text-gray-900">{name}</h3>
           <span className="text-red-600 font-semibold ml-4 whitespace-nowrap">
             ${item.price.toFixed(2)}
           </span>
         </div>
         <p className="text-gray-600 text-sm mt-2 leading-relaxed">
-          {item.description}
+          {description}
         </p>
       </div>
       <div className="flex flex-wrap items-center gap-3 mt-3">
@@ -32,7 +36,7 @@ export default function MenuItem({ item, isImageRight }: MenuItemProps) {
     <div className="w-full md:w-2/5">
       <img
         src={item.image}
-        alt={item.name}
+        alt={name}
         className="w-full h-40 md:h-48 object-cover"
       />
     </div>

@@ -1,16 +1,20 @@
 import { Flame } from 'lucide-react';
+import { useLanguage } from '../contexts/LanguageContext';
+import { translations } from '../i18n/translations';
 
 interface SpicyLevelProps {
   level: 1 | 2 | 3;
 }
 
-const spiceLevelText = {
-  1: 'Mild',
-  2: 'Medium',
-  3: 'Hot',
-} as const;
-
 export default function SpicyLevel({ level }: SpicyLevelProps) {
+  const { language } = useLanguage();
+  
+  const spiceLevelText = {
+    1: translations[language].spicyLevels.mild,
+    2: translations[language].spicyLevels.medium,
+    3: translations[language].spicyLevels.hot,
+  } as const;
+
   return (
     <div className="flex items-center gap-2">
       <div className="flex items-center gap-0.5">
